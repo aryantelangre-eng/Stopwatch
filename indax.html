@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sleek Stopwatch</title>
+    <style>
+        /* Modern, Minimalist Black & White Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0; /* Light gray background to make the white card stand out */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Takes up the full height of the screen */
+            margin: 0;
+        }
+        
+        .stopwatch-card {
+            background-color: white;
+            padding: 40px;
+            border: 3px solid black; /* Crisp outer border */
+            border-radius: 12px; /* Smooth corners */
+            box-shadow: 8px 8px 0px black; /* Brutalist shadow effect */
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #display {
+            font-size: 60px;
+            font-family: monospace; /* Gives it a digital clock feel */
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed black; /* Inner border for the screen */
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+            border-radius: 6px;
+            margin: 5px;
+            transition: all 0.2s ease-in-out; /* Smooth transition for the hover effect */
+        }
+
+        /* This triggers when the mouse hovers over a button */
+        button:hover {
+            background-color: black;
+            color: white;
+            transform: translateY(-2px); /* Moves the button up slightly */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stopwatch-card">
+        <h1>Stopwatch</h1>
+        
+        <div id="display">00:00</div>
+        
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <script>
+        // The JavaScript logic remains exactly the same
+        let tens = 0;
+        let seconds = 0;
+        let displayElement = document.getElementById("display");
+        let intervalId;
+
+        function startTimer() {
+            clearInterval(intervalId);
+            intervalId = setInterval(timerLogic, 10);
+        }
+
+        function stopTimer() {
+            clearInterval(intervalId);
+        }
+
+        function resetTimer() {
+            clearInterval(intervalId);
+            tens = 0;
+            seconds = 0;
+            displayElement.innerHTML = "00:00";
+        }
+
+        function timerLogic() {
+            tens++;
+            
+            if (tens > 99) {
+                seconds++;
+                tens = 0;
+            }
+
+            let displayTens = (tens < 10) ? "0" + tens : tens;
+            let displaySeconds = (seconds < 10) ? "0" + seconds : seconds;
+
+            displayElement.innerHTML = displaySeconds + ":" + displayTens;
+        }
+    </script>
+</body>
+</html>
